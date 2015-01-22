@@ -1,14 +1,15 @@
 package com.example.mj.hwapplication;
 
+import android.app.Activity;
+import android.app.ActivityGroup;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TabHost;
 
 //tab 출력
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActivityGroup {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,15 +17,19 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         TabHost tabHost = (TabHost)findViewById(android.R.id.tabhost);
+        tabHost.setup(this.getLocalActivityManager());
 
         TabHost.TabSpec left_tab = tabHost.newTabSpec("leftTab");
         TabHost.TabSpec right_tab = tabHost.newTabSpec("rightTab");
 
+
         left_tab.setIndicator("NATASHA");
-        left_tab.setContent(new Intent(this, LeftTabActivity.class));
+        left_tab.setContent(new Intent(getApplicationContext(), LeftTabActivity.class));
+        tabHost.addTab(left_tab);
 
         right_tab.setIndicator("YONG");
-        right_tab.setContent(new Intent(this, RightTabActivity.class));
+        right_tab.setContent(new Intent(getApplicationContext(), RightTabActivity.class));
+        tabHost.addTab(right_tab);
     }
 
 

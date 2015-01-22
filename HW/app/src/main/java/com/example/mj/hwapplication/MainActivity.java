@@ -7,7 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TabHost;
 
-
+//tab 출력
 public class MainActivity extends ActionBarActivity {
 
     @Override

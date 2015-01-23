@@ -3,8 +3,31 @@
     <string name="app_name">HOMEWORK</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <!--tab titles-->
     <string name="title_leftTab">NATASHA</string>
     <string name="title_rightTab">YONG</string>
-    <string name="AM">AM</string>
-    <string name="PM">PM</string>
+
+    <!-- AM, PM -->
+    <string name="am">AM</string>
+    <string name="pm">PM</string>
+
+    <!-- weather_status-->
+    <string-array name="weather_status">
+        <item>sunny</item>
+        <item>rainy</item>
+        <item>cloudy</item>
+        <item>snowy</item>
+        <item>windy</item>
+    </string-array>
+
+    <!-- weather about when -->
+    <string-array name="weather_when">
+        <item>today</item>
+        <item>tomorrow</item>
+    </string-array>
+
+    <string name="weather_updated">update</string>
+
+
 </resources>

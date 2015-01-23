@@ -19,7 +19,7 @@ public class LeftTabFragment extends Fragment {
 
     TextView mTextView_Hour;
     TextView mTextView_Minute;
-    TextView mTextView_Seconde;
+    TextView mTextView_Second;
     TextView mTextView_Noon;
 
     @Override
@@ -28,7 +28,7 @@ public class LeftTabFragment extends Fragment {
 
         mTextView_Hour = (TextView)getActivity().findViewById(R.id.textHour);
         mTextView_Minute = (TextView)getActivity().findViewById(R.id.textMinute);
-        mTextView_Seconde = (TextView)getActivity().findViewById(R.id.textSecond);
+        mTextView_Second = (TextView)getActivity().findViewById(R.id.textSecond);
         mTextView_Noon = (TextView)getActivity().findViewById(R.id.textNoon);
 
         timeThread = new TimeThread(mainHandler);
@@ -52,12 +52,12 @@ public class LeftTabFragment extends Fragment {
         public void handleMessage (Message msg) {
             mTextView_Hour.setText(String.valueOf(msg.what));
             mTextView_Minute.setText(String.valueOf(msg.arg1));
-            mTextView_Seconde.setText(String.valueOf(msg.arg2));
+            mTextView_Second.setText(String.valueOf(msg.arg2));
 
             if (msg.what <= 12)
-                mTextView_Noon.setText(R.string.AM);
+                mTextView_Noon.setText(R.string.am);
             else
-                mTextView_Noon.setText(R.string.PM);
+                mTextView_Noon.setText(R.string.pm);
         }
     };
 }

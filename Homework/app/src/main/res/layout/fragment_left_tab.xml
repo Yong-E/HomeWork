@@ -4,95 +4,193 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-    <!-- clock view -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
-        android:text="My Clock"
-        android:textSize="15dp"/>
+        <!-- clock view -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="My Clock"
+            android:textSize="15dp"/>
 
-    <LinearLayout
-        android:id="@+id/linear_myClock"
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_gravity="center"
-        android:gravity="center_vertical">
+        <LinearLayout
+            android:id="@+id/linear_myClock"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/text_Hour"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:textSize="30dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:text=":"
+                android:textSize="30dp"
+                />
+
+            <TextView
+                android:id="@+id/text_Minute"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:textSize="30dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:text=":"
+                android:textSize="30dp"
+                />
+
+            <TextView
+                android:id="@+id/text_Second"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:textSize="30dp"
+                />
+
+            <TextView
+                android:id="@+id/text_Noon"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:textSize="30dp"
+                />
+
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/textHour"
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="2dp"
-            android:layout_marginLeft="2dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:text="Digital Clock"
+            android:textSize="15dp" />
+
+        <DigitalClock
+            android:id="@+id/digitalClock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:textSize="30dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="2dp"
-            android:layout_marginLeft="2dp"
-            android:text=":"
-            android:textSize="30dp"
-            />
+        <!-- weather view -->
+        <RelativeLayout
+            android:id="@+id/linear_tomorrow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="100dp">
 
-        <TextView
-            android:id="@+id/textMinute"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="2dp"
-            android:layout_marginLeft="2dp"
-            android:textSize="30dp"
-            />
+            <!-- weather when (ex today (01/23 updated)) -->
+            <LinearLayout
+                android:id="@+id/linear_weatherText_onTop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="2dp"
-            android:layout_marginLeft="2dp"
-            android:text=":"
-            android:textSize="30dp"
-            />
+                <TextView
+                    android:id="@+id/text_weather_when"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="TODAY"
+                    android:textSize="15dp" />
 
-        <TextView
-            android:id="@+id/textSecond"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="2dp"
-            android:layout_marginLeft="2dp"
-            android:textSize="30dp"
-            />
+                <TextView
+                    android:id="@+id/text_month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="11"
+                    android:textSize="15dp" />
 
-        <TextView
-            android:id="@+id/textNoon"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="2dp"
-            android:layout_marginLeft="2dp"
-            android:textSize="30dp"
-            />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text=" / "
+                    android:textSize="15dp" />
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/text_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="27"
+                    android:textSize="15dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
-        android:text="Digital Clock"
-        android:textSize="15dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/weather_updated"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="15dp" />
 
-    <DigitalClock
-        android:id="@+id/digitalClock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="30dp" />
+            </LinearLayout>
 
-    <!-- weather view -->
+            <!-- weather icon (imageView로 바꿀 것) -->
+            <TextView
+                android:id="@+id/image_weather_icon"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_below="@id/linear_weatherText_onTop"
+                android:text="icon"
+                android:textSize="15dp" />
 
+            <!-- weather location, temparature -->
+            <LinearLayout
+                android:id="@+id/linear_weatherText_onRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/linear_weatherText_onTop"
+                android:layout_toRightOf="@id/image_weather_icon"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/whether_locate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:text="location"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/whether_temparature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:text="temp"
+                    android:textSize="15dp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
 </LinearLayout>

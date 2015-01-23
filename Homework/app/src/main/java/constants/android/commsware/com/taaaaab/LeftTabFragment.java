@@ -6,9 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * Created by yong on 15. 1. 23.
- */
 public class LeftTabFragment extends Fragment {
     public View view;
 
@@ -33,7 +30,7 @@ public class LeftTabFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_leftTab, container, false);
+        view = inflater.inflate(R.layout.fragment_left_tab, container, false);
         return view;
     }
 }

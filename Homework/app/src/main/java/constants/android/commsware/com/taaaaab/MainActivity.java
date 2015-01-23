@@ -13,6 +13,7 @@ import java.util.Locale;
 
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
+
     static ViewPager mViewPager;
     SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -43,6 +44,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
                     .setText(mSectionsPagerAdapter.getPageTitle(i))
                     .setTabListener(this));
         }
+
     }
 
     @Override
@@ -54,7 +56,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {
-
     }
 
     @Override

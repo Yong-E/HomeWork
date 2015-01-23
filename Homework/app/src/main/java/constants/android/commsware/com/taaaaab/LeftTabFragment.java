@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 /**
  * Created by yong on 15. 1. 23.
  */
-public class TabOne extends Fragment {
+public class LeftTabFragment extends Fragment {
     public View view;
 
     @Override
@@ -33,7 +33,7 @@ public class TabOne extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.tab_one, container, false);
+        view = inflater.inflate(R.layout.fragment_leftTab, container, false);
         return view;
     }
 }

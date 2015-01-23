@@ -83,10 +83,10 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             // below) with the page number as its lone argument.
             switch (position) {
                 case 0:
-                    fragment = new TabOne();
+                    fragment = new LeftTabFragment();
                     break;
                 case 1:
-                    fragment = new TabTwo();
+                    fragment = new RightTabFragment();
                     break;
 //			Bundle args = new Bundle();
 /*			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1); */
@@ -97,7 +97,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
+            // Show 2 total pages.
             return 2;
         }
 
@@ -106,9 +106,9 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             Locale l = Locale.getDefault();
             switch (position) {
                 case 0:
-                    return getString(R.string.title_section1).toUpperCase(l);
+                    return getString(R.string.title_leftTab).toUpperCase(l);
                 case 1:
-                    return getString(R.string.title_section2).toUpperCase(l);
+                    return getString(R.string.title_rightTab).toUpperCase(l);
             }
             return null;
         }

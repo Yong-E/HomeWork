@@ -124,13 +124,13 @@ public class RightTabFragment extends Fragment {
         private Bitmap downloadImage(String url) {
             Bitmap bitmap = null;
             InputStream stream;
-            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-            bmOptions.inSampleSize = 1;
+            BitmapFactory.Options bmOptions = new BitmapFactory.Options(); // decode 시 옵션을 줄 수 있음.
+            bmOptions.inSampleSize = 1; // 원본 사이즈.
 
             try {
                 stream = getHttpConnection(url);
                 bitmap = BitmapFactory.
-                        decodeStream(stream, null, bmOptions);
+                        decodeStream(stream, null, bmOptions); // InputStream으로 부터 Bitmap을 만들어 냄
                 stream.close();
             } catch (IOException e1) {
                 e1.printStackTrace();
@@ -141,14 +141,14 @@ public class RightTabFragment extends Fragment {
         // Makes HttpURLConnection and returns InputStream
         private InputStream getHttpConnection(String urlString)
                 throws IOException {
-            InputStream stream = null;
+            InputStream stream = null; // 바이트 단위 입력 스트림 최상위 클래스
             URL url = new URL(urlString);
             URLConnection connection = url.openConnection();
 
             try {
                 HttpURLConnection httpConnection = (HttpURLConnection) connection;
                 httpConnection.setRequestMethod("GET");
-                httpConnection.setDoOutput(true);
+                httpConnection.setDoOutput(true); // URLConnection의 출력 스트림 사용할지의 여부
                 httpConnection.connect();
 
                 if (httpConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {

@@ -1,5 +1,6 @@
 package constants.android.commsware.com.taaaaab;
 
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,6 +22,7 @@ import java.util.Date;
  */
 public class LeftTabFragment_Json extends Fragment {
 
+    Typeface weatherFont;
     public View view;
 
     TimeThread timeThread;
@@ -30,7 +32,10 @@ public class LeftTabFragment_Json extends Fragment {
     TextView mTextView_Temp, mTextView_Status, mTextView_Date, mTextView_Locate;
 
     String temperature, condition;
-    String defaultCity = "Seoul, KR";
+    String defaultCity = "Paris, FR";
+
+    TextView weatherIcon;
+
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -79,6 +84,10 @@ public class LeftTabFragment_Json extends Fragment {
 
                 condition = details.getString("main");
                 temperature = String.format("%.2f", main.getDouble("temp"))+ " ℃";
+
+                setWeatherIcon(details.getInt("id"),
+                        json.getJSONObject("sys").getLong("sunrise") * 1000,
+                        json.getJSONObject("sys").getLong("sunset") * 1000);
             }catch(Exception e){
                 Log.e("SimpleWeather", "One or more fields not found in the JSON data");
             }
@@ -100,6 +109,10 @@ public class LeftTabFragment_Json extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_left_tab, container, false);
+
+        weatherIcon = (TextView)view.findViewById(R.id.image_weather_icon);
+        weatherIcon.setTypeface(weatherFont);
+
         return view;
     }
 
@@ -115,4 +128,36 @@ public class LeftTabFragment_Json extends Fragment {
                 mTextView_Noon.setText(R.string.pm);
         }
     };
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        weatherFont = Typeface.createFromAsset(getActivity().getAssets(), "weather.ttf");
+    }
+    private void setWeatherIcon(int actualId, long sunrise, long sunset){
+        int id = actualId / 100;
+        String icon = "";
+        if(actualId == 800){
+            long currentTime = new Date().getTime();
+            if(currentTime>=sunrise && currentTime<sunset) {
+                icon = getActivity().getString(R.string.weather_sunny);
+            } else {
+                icon = getActivity().getString(R.string.weather_clear_night);
+            }
+        } else {
+            switch(id) {
+                case 2 : icon = getActivity().getString(R.string.weather_thunder);
+                    break;
+                case 3 : icon = getActivity().getString(R.string.weather_drizzle);
+                    break;
+                case 7 : icon = getActivity().getString(R.string.weather_foggy);
+                    break;
+                case 8 : icon = getActivity().getString(R.string.weather_cloudy);
+                    break;
+                case 6 : icon = getActivity().getString(R.string.weather_snowy);
+                    break;
+                case 5 : icon = getActivity().getString(R.string.weather_rainy);
+                    break;
+            }
+        }
+        weatherIcon.setText(icon);
+    }
 }

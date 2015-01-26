@@ -26,10 +26,10 @@ public class LeftTabFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mTextView_Hour = (TextView)getActivity().findViewById(R.id.textHour);
-        mTextView_Minute = (TextView)getActivity().findViewById(R.id.textMinute);
-        mTextView_Second = (TextView)getActivity().findViewById(R.id.textSecond);
-        mTextView_Noon = (TextView)getActivity().findViewById(R.id.textNoon);
+        mTextView_Hour = (TextView)getActivity().findViewById(R.id.text_Hour);
+        mTextView_Minute = (TextView)getActivity().findViewById(R.id.text_Minute);
+        mTextView_Second = (TextView)getActivity().findViewById(R.id.text_Second);
+        mTextView_Noon = (TextView)getActivity().findViewById(R.id.text_Noon);
 
         timeThread = new TimeThread(mainHandler);
         timeThread.setDaemon(true);

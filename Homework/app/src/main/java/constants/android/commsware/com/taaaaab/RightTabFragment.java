@@ -37,7 +37,9 @@ public class RightTabFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_right_tab, container, false);
+        // Create an object for subclass of AsyncTask
         GetXMLTask task = new GetXMLTask();
+        // Execute the task
         task.execute(new String[]{addr});
         return view;
     }
@@ -85,7 +87,8 @@ public class RightTabFragment extends Fragment {
         super.onPause();
     }
 
-    // 갤러리에서 이미지 가져와 imageView에 저장.
+    // before & after executed onStart() , must executed before onResume()
+    // save to imageView from image in Gallery
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -100,7 +103,7 @@ public class RightTabFragment extends Fragment {
         } // end of onActivityResult
     } //  end of onActivityResult
 
-    // Uri 이미지 가져와 imageView에 저장.
+    // Save to imageView from Uri
     private class GetXMLTask extends AsyncTask<String, Void, Bitmap> {
         @Override
         protected Bitmap doInBackground(String... urls) {
@@ -111,8 +114,7 @@ public class RightTabFragment extends Fragment {
             return map;
         } // end of doInBackground
 
-        // Sets the Bitmap returned by doInBackground
-        // UI 업데이트
+        // Sets the Bitmap returned by doInBackground, Update UI
         @Override
         protected void onPostExecute(Bitmap result) {
             imgView.setImageBitmap(result);
@@ -159,7 +161,7 @@ public class RightTabFragment extends Fragment {
         } // end of getHttpConnection
     } // end of GetXMLTask
 
-    // uri 를 받아 파일매니저를 통하여 파일 다운로드.
+    // used to File manager for Uri Image Download
     public void downloadFile(String url) {
         File direct = new File(Environment.getExternalStorageDirectory() + "/download");
         if (!direct.exists()) {

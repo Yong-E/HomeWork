@@ -68,10 +68,13 @@ public class LeftTabFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+<<<<<<< HEAD
         //currentActivity = getActivity();
         //System.out.println("currentActivity: *** " + currentActivity);
 
         //set myClockView
+=======
+>>>>>>> db34d3cc5bd62d5e76f8ca43c4834a4108ea5c29
         mTextView_Hour = (TextView)getActivity().findViewById(R.id.text_Hour);
         mTextView_Minute = (TextView)getActivity().findViewById(R.id.text_Minute);
         mTextView_Second = (TextView)getActivity().findViewById(R.id.text_Second);

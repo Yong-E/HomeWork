@@ -115,7 +115,7 @@
                     android:gravity="center"
                     android:text="TODAY"
                     android:textSize="15dp" />
-
+                <!--
                 <TextView
                     android:id="@+id/text_month"
                     android:layout_width="wrap_content"
@@ -133,6 +133,15 @@
 
                 <TextView
                     android:id="@+id/text_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="27"
+                    android:textSize="15dp" />
+                -->
+
+                <TextView
+                    android:id="@+id/text_weather_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -160,7 +169,7 @@
                 android:text="icon"
                 android:textSize="15dp" />
 
-            <!-- weather location, temparature -->
+            <!-- weather location, temperature -->
             <LinearLayout
                 android:id="@+id/linear_weatherText_onRight"
                 android:layout_width="wrap_content"
@@ -170,7 +179,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/whether_locate"
+                    android:id="@+id/text_weather_locate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -180,13 +189,23 @@
                     android:textSize="15dp" />
 
                 <TextView
-                    android:id="@+id/whether_temparature"
+                    android:id="@+id/text_weather_temp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_marginTop="5dp"
                     android:text="temp"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/text_weather_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:text="status"
                     android:textSize="15dp" />
 
             </LinearLayout>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">weatherTest</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- weather_status-->
+    <string-array name="weather_status">
+        <item>sunny</item>
+        <item>rainy</item>
+        <item>cloudy</item>
+        <item>snowy</item>
+        <item>windy</item>
+    </string-array>
+
+    <!-- weather about when -->
+    <string-array name="weather_when">
+        <item>today</item>
+        <item>tomorrow</item>
+    </string-array>
+
+    <string name="weather_updated">update</string>
+</resources>

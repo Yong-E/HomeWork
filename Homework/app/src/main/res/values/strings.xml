@@ -17,6 +17,6 @@
         <item>today</item>
     </string-array>
 
-    <string name="open_weather_maps_app_id">12345</string>
+    <!-- <string name="open_weather_maps_app_id">12345</string> -->
 
 </resources>

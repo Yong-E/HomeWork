@@ -1,5 +1,7 @@
 package constants.android.commsware.com.taaaaab;
 
+import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.json.JSONObject;
@@ -32,24 +35,31 @@ public class LeftTabFragment_Json extends Fragment {
     String temperature, condition;
     String defaultCity = "Seoul, KR";
 
+    Bitmap icon = null;
+    ImageView imageIcon;
+
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        //set myClockView
+        // set myClockView
         mTextView_Hour = (TextView)getActivity().findViewById(R.id.text_Hour);
         mTextView_Minute = (TextView)getActivity().findViewById(R.id.text_Minute);
         mTextView_Second = (TextView)getActivity().findViewById(R.id.text_Second);
         mTextView_Noon = (TextView)getActivity().findViewById(R.id.text_Noon);
 
-        //set & start thread for clock
+        // set & start thread for clock
         timeThread = new TimeThread(mainHandler);
         timeThread.setDaemon(true);
         timeThread.start();
 
+        // set Weather View
         mTextView_Temp = (TextView)getActivity().findViewById(R.id.text_weather_temp);
         mTextView_Status = (TextView)getActivity().findViewById(R.id.text_weather_status);
         mTextView_Date = (TextView)getActivity().findViewById(R.id.text_weather_date);
         mTextView_Locate = (TextView)getActivity().findViewById(R.id.text_weather_locate);
+
+        // start asyncTask for Weather
+        imageIcon = (ImageView)getActivity().findViewById(R.id.image_weather_icon);
 
         new weatherTask().execute();
     }
@@ -62,14 +72,13 @@ public class LeftTabFragment_Json extends Fragment {
 
         protected String doInBackground(Void... arg0) {
             HttpConnect connect = new HttpConnect();
-
-            JSONObject returnResponse = connect.getJason(getActivity(), defaultCity);
-            renderWeather(returnResponse);
+            JSONObject returnResponse = connect.getJason(defaultCity);
+            getWeather(returnResponse);
 
             return null;
         }
 
-        private void renderWeather(JSONObject json){
+        private void getWeather(JSONObject json){
             try {
 //                mTextView_Locate.setText(json.getString("name").toUpperCase(Locale.US)
 //                        + ", " + json.getJSONObject("sys").getString("country"));
@@ -97,8 +106,7 @@ public class LeftTabFragment_Json extends Fragment {
     public void onPause() { super.onPause(); }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_left_tab, container, false);
         return view;
     }

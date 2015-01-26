@@ -159,7 +159,7 @@
             </LinearLayout>
 
             <!-- weather icon (imageView로 바꿀 것) -->
-            <TextView
+            <ImageView
                 android:id="@+id/image_weather_icon"
                 android:layout_width="70dp"
                 android:layout_height="70dp"

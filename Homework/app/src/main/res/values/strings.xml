@@ -12,21 +12,11 @@
     <string name="am">AM</string>
     <string name="pm">PM</string>
 
-    <!-- weather_status-->
-    <string-array name="weather_status">
-        <item>sunny</item>
-        <item>rainy</item>
-        <item>cloudy</item>
-        <item>snowy</item>
-        <item>windy</item>
-    </string-array>
-
     <!-- weather about when -->
     <string-array name="weather_when">
         <item>today</item>
-        <item>tomorrow</item>
     </string-array>
 
-    <string name="weather_updated">update</string>
+    <string name="open_weather_maps_app_id">12345</string>
 
 </resources>

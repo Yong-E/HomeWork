@@ -84,7 +84,8 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             // below) with the page number as its lone argument.
             switch (position) {
                 case 0:
-                    fragment = new LeftTabFragment();
+                    //fragment = new LeftTabFragment();
+                    fragment = new LeftTabFragment_Json();
                     break;
                 case 1:
                     fragment = new RightTabFragment();

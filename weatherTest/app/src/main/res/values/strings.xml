@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">HOMEWORK</string>
+
+    <string name="app_name">weatherTest</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-
-    <!--tab titles-->
-    <string name="title_leftTab">NATASHA</string>
-    <string name="title_rightTab">YONG</string>
-
-    <!-- AM, PM -->
-    <string name="am">AM</string>
-    <string name="pm">PM</string>
 
     <!-- weather_status-->
     <string-array name="weather_status">
@@ -28,5 +21,4 @@
     </string-array>
 
     <string name="weather_updated">update</string>
-
 </resources>

@@ -93,7 +93,12 @@
             android:textSize="30dp" />
 
         <!-- weather view -->
-        <RelativeLayout
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView" />
+
+    <RelativeLayout
             android:id="@+id/linear_tomorrow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -159,7 +164,7 @@
             </LinearLayout>
 
             <!-- weather icon (imageView로 바꿀 것) -->
-            <ImageView
+            <TextView
                 android:id="@+id/image_weather_icon"
                 android:layout_width="70dp"
                 android:layout_height="70dp"

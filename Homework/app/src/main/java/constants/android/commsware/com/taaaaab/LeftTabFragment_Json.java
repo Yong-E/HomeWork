@@ -1,6 +1,6 @@
 package constants.android.commsware.com.taaaaab;
 
-import android.graphics.Bitmap;
+import android.widget.TextView;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,8 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import org.json.JSONObject;
 
@@ -23,56 +21,31 @@ import java.util.Date;
  * Created by mj on 15. 1. 26.
  */
 public class LeftTabFragment_Json extends Fragment {
+    public View mView;
 
-    public View view;
+    TimeThread mTimeThread;
 
-    TimeThread timeThread;
+    // for myClock View
+    TextView mTVHour, mTVMinute, mTVSecond, mTVNoon;
 
-    //for myClock View
-    TextView mTextView_Hour, mTextView_Minute, mTextView_Second, mTextView_Noon;
-    TextView mTextView_Temp, mTextView_Status, mTextView_Date, mTextView_Locate;
+    // for weather View
+    TextView mTVTemp, mTVStatus, mTVDate, mTVWeatherIcon;
+    Typeface weatherFont;
 
-    String temperature, condition;
-    String defaultCity = "Seoul, KR";
-
-    Bitmap icon = null;
-    ImageView imageIcon;
+    String mTemperature, mStatus;
+    String mDefaultCity = "Seoul, KR";
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        // set myClockView
-        mTextView_Hour = (TextView)getActivity().findViewById(R.id.text_Hour);
-        mTextView_Minute = (TextView)getActivity().findViewById(R.id.text_Minute);
-        mTextView_Second = (TextView)getActivity().findViewById(R.id.text_Second);
-        mTextView_Noon = (TextView)getActivity().findViewById(R.id.text_Noon);
-
-        // set & start thread for clock
-        timeThread = new TimeThread(mainHandler);
-        timeThread.setDaemon(true);
-        timeThread.start();
-
-        // set Weather View
-        mTextView_Temp = (TextView)getActivity().findViewById(R.id.text_weather_temp);
-        mTextView_Status = (TextView)getActivity().findViewById(R.id.text_weather_status);
-        mTextView_Date = (TextView)getActivity().findViewById(R.id.text_weather_date);
-        mTextView_Locate = (TextView)getActivity().findViewById(R.id.text_weather_locate);
-
-        // start asyncTask for Weather
-        imageIcon = (ImageView)getActivity().findViewById(R.id.image_weather_icon);
-
-        new weatherTask().execute();
     }
 
-    protected class weatherTask extends AsyncTask<Void, String, String> {
+    protected class weatherTask extends AsyncTask<Void, Void, Void> {
 
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
+        protected void onPreExecute() { super.onPreExecute(); }
 
-        protected String doInBackground(Void... arg0) {
+        protected Void doInBackground(Void... arg0) {
             HttpConnect connect = new HttpConnect();
-            JSONObject returnResponse = connect.getJason(defaultCity);
+            JSONObject returnResponse = connect.getJason(mDefaultCity);
             getWeather(returnResponse);
 
             return null;
@@ -80,47 +53,104 @@ public class LeftTabFragment_Json extends Fragment {
 
         private void getWeather(JSONObject json){
             try {
-//                mTextView_Locate.setText(json.getString("name").toUpperCase(Locale.US)
-//                        + ", " + json.getJSONObject("sys").getString("country"));
-
                 JSONObject details = json.getJSONArray("weather").getJSONObject(0);
                 JSONObject main = json.getJSONObject("main");
 
-                condition = details.getString("main");
-                temperature = String.format("%.2f", main.getDouble("temp"))+ " ℃";
-            }catch(Exception e){
+                mStatus = details.getString("main");
+                mTemperature = String.format("%.2f", main.getDouble("temp"))+ " ℃";
+
+                setWeatherIcon(details.getInt("id"), json.getJSONObject("sys").getLong("sunrise") * 1000, json.getJSONObject("sys").getLong("sunset") * 1000);
+
+            } catch(Exception e) {
                 Log.e("SimpleWeather", "One or more fields not found in the JSON data");
             }
         }
 
         // EXECUTE ON UI THREAD
-        protected void onPostExecute(String result) {
-            mTextView_Temp.setText(temperature);
-            mTextView_Status.setText(condition);
-            mTextView_Date.setText(new SimpleDateFormat("MM/dd").format(new Date()));
+        protected void onPostExecute(Void result) {
+            mTVTemp.setText(mTemperature);
+            mTVStatus.setText(mStatus);
+            mTVDate.setText(new SimpleDateFormat("MM/dd").format(new Date()));
         }
     }
 
-    public void onResume() { super.onResume();  }
+    public void onResume() { super.onResume(); }
 
     public void onPause() { super.onPause(); }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_left_tab, container, false);
-        return view;
+        mView = inflater.inflate(R.layout.fragment_left_tab, container, false);
+
+        mTVWeatherIcon = (TextView)mView.findViewById(R.id.image_weather_icon);
+        mTVWeatherIcon.setTypeface(weatherFont);
+
+        //set myClockView
+        mTVHour = (TextView)mView.findViewById(R.id.text_Hour);
+        mTVMinute = (TextView)mView.findViewById(R.id.text_Minute);
+        mTVSecond = (TextView)mView.findViewById(R.id.text_Second);
+        mTVNoon = (TextView)mView.findViewById(R.id.text_Noon);
+
+        //set & start thread for clock
+        mTimeThread = new TimeThread(mainHandler);
+        mTimeThread.setDaemon(true);
+        mTimeThread.start();
+
+        mTVTemp = (TextView)mView.findViewById(R.id.text_weather_temp);
+        mTVStatus = (TextView)mView.findViewById(R.id.text_weather_status);
+        mTVDate = (TextView)mView.findViewById(R.id.text_weather_date);
+
+        new weatherTask().execute();
+
+        return mView;
     }
 
     Handler mainHandler = new Handler() {
         public void handleMessage (Message msg) {
-            mTextView_Hour.setText(String.valueOf(msg.what));
-            mTextView_Minute.setText(String.valueOf(msg.arg1));
-            mTextView_Second.setText(String.valueOf(msg.arg2));
+            mTVHour.setText(String.valueOf(msg.what));
+            mTVMinute.setText(String.valueOf(msg.arg1));
+            mTVSecond.setText(String.valueOf(msg.arg2));
 
             if (msg.what <= 12)
-                mTextView_Noon.setText(R.string.am);
+                mTVNoon.setText(R.string.am);
             else
-                mTextView_Noon.setText(R.string.pm);
+                mTVNoon.setText(R.string.pm);
         }
     };
+
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        weatherFont = Typeface.createFromAsset(getActivity().getAssets(), "weather.ttf");
+    }
+
+    private void setWeatherIcon (int actualId, long sunrise, long sunset) {
+        int mId = actualId / 100;
+        String mIcon = "";
+
+        if(actualId == 800){
+            long currentTime = new Date().getTime();
+            if(currentTime>=sunrise && currentTime<sunset) {
+                mIcon = getActivity().getString(R.string.weather_sunny);
+            } else {
+                mIcon = getActivity().getString(R.string.weather_clear_night);
+            }
+        } else {
+            switch(mId) {
+                case 2 : mIcon = getActivity().getString(R.string.weather_thunder);
+                    break;
+                case 3 : mIcon = getActivity().getString(R.string.weather_drizzle);
+                    break;
+                case 7 : mIcon = getActivity().getString(R.string.weather_foggy);
+                    break;
+                case 8 : mIcon = getActivity().getString(R.string.weather_cloudy);
+                    break;
+                case 6 : mIcon = getActivity().getString(R.string.weather_snowy);
+                    break;
+                case 5 : mIcon = getActivity().getString(R.string.weather_rainy);
+                    break;
+            }
+        }
+
+        mTVWeatherIcon.setText(mIcon);
+    }
 }

@@ -28,8 +28,9 @@ public class HttpConnect {
 
             StringBuffer json = new StringBuffer(1024);
             String tmp = "";
-            while ((tmp = reader.readLine()) != null)
+            while ((tmp = reader.readLine()) != null) {
                 json.append(tmp).append("\n");
+            }
 
             reader.close();
 

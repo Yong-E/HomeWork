@@ -36,36 +36,20 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 public class LeftTabFragment extends Fragment {
-    public View view;
+    public View mView;
 
-    TimeThread timeThread;
+    TimeThread mTimeThread;
 
-    //for myClock View
-    TextView mTextView_Hour, mTextView_Minute, mTextView_Second, mTextView_Noon;
-    TextView mTextView_Temp, mTextView_Status, mTextView_Date;
+    // for myClock View
+    TextView mTVHour, mTVMinute, mTVSecond, mTVNoon;
 
-    String temperature, date, condition;
+    // for weather View
+    TextView mTVTemp, mTVStatus, mTVDate;
+
+    String mTemperature, mDate, mStatus;
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        //set myClockView
-
-        mTextView_Hour = (TextView)getActivity().findViewById(R.id.text_Hour);
-        mTextView_Minute = (TextView)getActivity().findViewById(R.id.text_Minute);
-        mTextView_Second = (TextView)getActivity().findViewById(R.id.text_Second);
-        mTextView_Noon = (TextView)getActivity().findViewById(R.id.text_Noon);
-
-        //set & start thread for clock
-        timeThread = new TimeThread(mainHandler);
-        timeThread.setDaemon(true);
-        timeThread.start();
-
-        mTextView_Temp = (TextView)getActivity().findViewById(R.id.text_weather_temp);
-        mTextView_Status = (TextView)getActivity().findViewById(R.id.text_weather_status);
-        mTextView_Date = (TextView)getActivity().findViewById(R.id.text_weather_date);
-
-        new weatherTask().execute();
     }
 
     protected class weatherTask extends AsyncTask<Void, String, String> {
@@ -89,10 +73,12 @@ public class LeftTabFragment extends Fragment {
                     Reader in = new InputStreamReader(inputStream);
                     BufferedReader bufferedreader = new BufferedReader(in);
                     StringBuilder stringBuilder = new StringBuilder();
+
                     String stringReadLine = null;
                     while ((stringReadLine = bufferedreader.readLine()) != null) {
                         stringBuilder.append(stringReadLine + "\n");
                     }
+
                     qResult = stringBuilder.toString();
                 }
             } catch (ClientProtocolException e) {
@@ -119,25 +105,25 @@ public class LeftTabFragment extends Fragment {
 
             // Retrieves the weather from the xml-file
             Node temperatureNode = dest.getElementsByTagName("yweather:condition").item(0);
-            temperature = temperatureNode.getAttributes().getNamedItem("temp").getNodeValue().toString();
+            mTemperature = temperatureNode.getAttributes().getNamedItem("temp").getNodeValue().toString();
 
             Node tempUnitNode = dest.getElementsByTagName("yweather:units").item(0);
-            temperature = temperature + "°" +tempUnitNode.getAttributes().getNamedItem("temperature").getNodeValue().toString();
+            mTemperature = mTemperature + "°" +tempUnitNode.getAttributes().getNamedItem("temperature").getNodeValue().toString();
 
             Node dateNode = dest.getElementsByTagName("yweather:forecast").item(0);
-            date = dateNode.getAttributes().getNamedItem("date").getNodeValue().toString();
+            mDate = dateNode.getAttributes().getNamedItem("date").getNodeValue().toString();
 
             Node conditionNode = dest.getElementsByTagName("yweather:condition").item(0);
-            condition = conditionNode.getAttributes().getNamedItem("text").getNodeValue().toString();
+            mStatus = conditionNode.getAttributes().getNamedItem("text").getNodeValue().toString();
 
             return qResult;
         }
 
         // EXECUTE ON UI THREAD
         protected void onPostExecute(String result) {
-            mTextView_Temp.setText(temperature);
-            mTextView_Status.setText(condition);
-            mTextView_Date.setText(date);
+            mTVTemp.setText(mTemperature);
+            mTVStatus.setText(mStatus);
+            mTVDate.setText(mDate);
         }
     }
 
@@ -146,44 +132,61 @@ public class LeftTabFragment extends Fragment {
     public void onPause() { super.onPause(); }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_left_tab, container, false);
-        return view;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mView = inflater.inflate(R.layout.fragment_left_tab, container, false);
+
+        //set myClockView
+        mTVHour = (TextView)mView.findViewById(R.id.text_Hour);
+        mTVMinute = (TextView)mView.findViewById(R.id.text_Minute);
+        mTVSecond = (TextView)mView.findViewById(R.id.text_Second);
+        mTVNoon = (TextView)mView.findViewById(R.id.text_Noon);
+
+        //set & start thread for clock
+        mTimeThread = new TimeThread(mainHandler);
+        mTimeThread.setDaemon(true);
+        mTimeThread.start();
+
+        mTVTemp = (TextView)mView.findViewById(R.id.text_weather_temp);
+        mTVStatus = (TextView)mView.findViewById(R.id.text_weather_status);
+        mTVDate = (TextView)mView.findViewById(R.id.text_weather_date);
+
+        new weatherTask().execute();
+
+        return mView;
     }
 
     Handler mainHandler = new Handler() {
         public void handleMessage (Message msg) {
-            mTextView_Hour.setText(String.valueOf(msg.what));
-            mTextView_Minute.setText(String.valueOf(msg.arg1));
-            mTextView_Second.setText(String.valueOf(msg.arg2));
+            mTVHour.setText(String.valueOf(msg.what));
+            mTVMinute.setText(String.valueOf(msg.arg1));
+            mTVSecond.setText(String.valueOf(msg.arg2));
 
             if (msg.what <= 12)
-                mTextView_Noon.setText(R.string.am);
+                mTVNoon.setText(R.string.am);
             else
-                mTextView_Noon.setText(R.string.pm);
+                mTVNoon.setText(R.string.pm);
         }
     };
 }
 
 class TimeThread extends Thread {
-    Handler timeHandler;
+    Handler mTimeHandler;
 
-    int time;
-    int minute;
-    int second;
+    int mTime;
+    int mMinute;
+    int mSecond;
 
     TimeThread (Handler handler) {
-        timeHandler = handler;
+        mTimeHandler = handler;
     }
     public void run() {
         while (true) {
-            time = Integer.parseInt(new SimpleDateFormat("HH").format(new Date()));
-            minute = Integer.parseInt(new SimpleDateFormat("mm").format(new Date()));
-            second = Integer.parseInt(new SimpleDateFormat("ss").format(new Date()));
+            mTime = Integer.parseInt(new SimpleDateFormat("HH").format(new Date()));
+            mMinute = Integer.parseInt(new SimpleDateFormat("mm").format(new Date()));
+            mSecond = Integer.parseInt(new SimpleDateFormat("ss").format(new Date()));
 
-            Message msg = Message.obtain(timeHandler, time, minute, second, 0);
-            timeHandler.sendMessage(msg);
+            Message msg = Message.obtain(mTimeHandler, mTime, mMinute, mSecond, 0);
+            mTimeHandler.sendMessage(msg);
             try { Thread.sleep(1000); }
             catch (InterruptedException e) { ; }
         }

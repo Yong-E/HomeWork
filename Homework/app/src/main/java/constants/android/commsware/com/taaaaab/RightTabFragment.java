@@ -41,6 +41,25 @@ public class RightTabFragment extends Fragment {
         GetXMLTask task = new GetXMLTask();
         // Execute the task
         task.execute(new String[]{addr});
+        Button svBtn = (Button) view.findViewById(R.id.saveBtn);
+        Button chBtn = (Button) view.findViewById(R.id.changeBtn);
+        svBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                downloadFile(addr);
+            } // end of onClick
+        }); // end of Listener
+
+        chBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(
+                        Intent.ACTION_GET_CONTENT,      // 또는 ACTION_PICK
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                intent.setType("image/*");              // 모든 이미지
+                startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
+            }// end of onClick
+        }); // end on Listener
         return view;
     }
 
@@ -61,26 +80,9 @@ public class RightTabFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        Button svBtn = (Button) getView().findViewById(R.id.saveBtn);
-        Button chBtn = (Button) getView().findViewById(R.id.changeBtn);
 
-        svBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                downloadFile(addr);
-            } // end of onClick
-        }); // end of Listener
 
-        chBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(
-                        Intent.ACTION_GET_CONTENT,      // 또는 ACTION_PICK
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                intent.setType("image/*");              // 모든 이미지
-                startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
-            }// end of onClick
-        }); // end on Listener
+
     }
 
     public void onPause() {

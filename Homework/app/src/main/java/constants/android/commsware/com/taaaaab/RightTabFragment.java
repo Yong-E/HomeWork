@@ -41,29 +41,8 @@ public class RightTabFragment extends Fragment {
         GetXMLTask task = new GetXMLTask();
         // Execute the task
         task.execute(new String[]{addr});
-        return view;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        imgView = (ImageView) getView().findViewById(R.id.imgView);
-    }
-
-    // Fragment 초기화 할 요소를 넣는다. UI inflate & Service & Timer 등
-    // onStart()에 넣을 수 있으면 onStart()가 좋음, onCreateView()에 넣으면, 다 그려지기 전까지는 화면에 보이지 않을 수 있음.
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        Button svBtn = (Button) getView().findViewById(R.id.saveBtn);
-        Button chBtn = (Button) getView().findViewById(R.id.changeBtn);
-
+        Button svBtn = (Button) view.findViewById(R.id.saveBtn);
+        Button chBtn = (Button) view.findViewById(R.id.changeBtn);
         svBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,7 +60,23 @@ public class RightTabFragment extends Fragment {
                 startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
             }// end of onClick
         }); // end on Listener
+        return view;
     }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        imgView = (ImageView) getView().findViewById(R.id.imgView);
+    }
+    // Fragment 초기화 할 요소를 넣는다. UI inflate & Service & Timer 등
+    // onStart()에 넣을 수 있으면 onStart()가 좋음, onCreateView()에 넣으면, 다 그려지기 전까지는 화면에 보이지 않을 수 있음.
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onResume() { super.onResume(); }
 
     public void onPause() {
         super.onPause();

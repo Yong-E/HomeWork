@@ -54,9 +54,9 @@ public class RightTabFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(
-                        Intent.ACTION_GET_CONTENT,      // 또는 ACTION_PICK
+                        Intent.ACTION_GET_CONTENT,      // OR ACTION_PICK
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                intent.setType("image/*");              // 모든 이미지
+                intent.setType("image/*");              // All image
                 startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
             }// end of onClick
         }); // end on Listener
@@ -68,8 +68,6 @@ public class RightTabFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         imgView = (ImageView) getView().findViewById(R.id.imgView);
     }
-    // Fragment 초기화 할 요소를 넣는다. UI inflate & Service & Timer 등
-    // onStart()에 넣을 수 있으면 onStart()가 좋음, onCreateView()에 넣으면, 다 그려지기 전까지는 화면에 보이지 않을 수 있음.
     @Override
     public void onStart() {
         super.onStart();
@@ -119,13 +117,13 @@ public class RightTabFragment extends Fragment {
         private Bitmap downloadImage(String url) {
             Bitmap bitmap = null;
             InputStream stream;
-            BitmapFactory.Options bmOptions = new BitmapFactory.Options(); // decode 시 옵션을 줄 수 있음.
-            bmOptions.inSampleSize = 1; // 원본 사이즈.
+            BitmapFactory.Options bmOptions = new BitmapFactory.Options(); // decode option
+            bmOptions.inSampleSize = 1; // size
 
             try {
                 stream = getHttpConnection(url);
                 bitmap = BitmapFactory.
-                        decodeStream(stream, null, bmOptions); // InputStream으로 부터 Bitmap을 만들어 냄
+                        decodeStream(stream, null, bmOptions); // InputStream , Bitmap
                 stream.close();
             } catch (IOException e1) {
                 e1.printStackTrace();
@@ -136,14 +134,14 @@ public class RightTabFragment extends Fragment {
         // Makes HttpURLConnection and returns InputStream
         private InputStream getHttpConnection(String urlString)
                 throws IOException {
-            InputStream stream = null; // 바이트 단위 입력 스트림 최상위 클래스
+            InputStream stream = null; //
             URL url = new URL(urlString);
             URLConnection connection = url.openConnection();
 
             try {
                 HttpURLConnection httpConnection = (HttpURLConnection) connection;
                 httpConnection.setRequestMethod("GET");
-                httpConnection.setDoOutput(true); // URLConnection의 출력 스트림 사용할지의 여부
+                httpConnection.setDoOutput(true); // URLConnection availability
                 httpConnection.connect();
 
                 if (httpConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {

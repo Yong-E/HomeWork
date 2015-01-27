@@ -4,217 +4,372 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-        <!-- clock view -->
+    <!-- clock view -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:text="My Clock"
+        android:textSize="15dp"/>
+
+    <LinearLayout
+        android:id="@+id/linear_myClock"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/text_Hour"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="2dp"
+            android:layout_marginLeft="2dp"
+            android:textSize="30dp" />
+
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:text="My Clock"
-            android:textSize="15dp"/>
+            android:layout_height="fill_parent"
+            android:layout_marginRight="2dp"
+            android:layout_marginLeft="2dp"
+            android:text=":"
+            android:textSize="30dp" />
 
-        <LinearLayout
-            android:id="@+id/linear_myClock"
-            android:orientation="horizontal"
+        <TextView
+            android:id="@+id/text_Minute"
             android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:gravity="center_vertical">
+            android:layout_height="fill_parent"
+            android:layout_marginRight="2dp"
+            android:layout_marginLeft="2dp"
+            android:textSize="30dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="2dp"
+            android:layout_marginLeft="2dp"
+            android:text=":"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/text_Second"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="2dp"
+            android:layout_marginLeft="2dp"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/text_Noon"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="2dp"
+            android:layout_marginLeft="2dp"
+            android:textSize="30dp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="OpenWeatherMap API Json (Reader instead of Bfr)"
+        android:textSize="10dp"/>
+
+    <!-- weather view with BufferedReader-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal" >
+
+        <!-- weather when (ex today (01/23 updated)) -->
+        <LinearLayout
+            android:id="@+id/ln_wText_Bfr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/text_Hour"
+                android:id="@+id/text_wToday_Bfr"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="TODAY"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/text_wDate_Bfr"
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="2dp"
-                android:layout_marginLeft="2dp"
-                android:textSize="30dp" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="2dp"
-                android:layout_marginLeft="2dp"
-                android:text=":"
-                android:textSize="30dp"
-                />
-
-            <TextView
-                android:id="@+id/text_Minute"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="2dp"
-                android:layout_marginLeft="2dp"
-                android:textSize="30dp"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="2dp"
-                android:layout_marginLeft="2dp"
-                android:text=":"
-                android:textSize="30dp"
-                />
-
-            <TextView
-                android:id="@+id/text_Second"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="2dp"
-                android:layout_marginLeft="2dp"
-                android:textSize="30dp"
-                />
-
-            <TextView
-                android:id="@+id/text_Noon"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="2dp"
-                android:layout_marginLeft="2dp"
-                android:textSize="30dp"
-                />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="updated"
+                android:layout_marginLeft="5dp"
+                android:textSize="10dp" />
 
         </LinearLayout>
 
+        <!-- weather icon -->
         <TextView
+            android:id="@+id/text_wIcon_Bfr"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginRight="10dp"
+            android:layout_below="@id/ln_wText_Bfr" />
+
+        <!-- weather location, temperature -->
+        <LinearLayout
+            android:id="@+id/ln_wText_onRight_Bfr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:text="Digital Clock"
-            android:textSize="15dp" />
+            android:layout_below="@id/ln_wText_Bfr"
+            android:layout_toRightOf="@id/text_wIcon_Bfr"
+            android:orientation="vertical">
 
-        <DigitalClock
-            android:id="@+id/digitalClock"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="30dp" />
-
-        <!-- weather view -->
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView" />
-
-    <RelativeLayout
-            android:id="@+id/linear_tomorrow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="100dp">
-
-            <!-- weather when (ex today (01/23 updated)) -->
-            <LinearLayout
-                android:id="@+id/linear_weatherText_onTop"
+            <TextView
+                android:id="@+id/text_wCity_Bfr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/text_weather_when"
-                    android:layout_width="70dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="TODAY"
-                    android:textSize="15dp" />
-                <!--
-                <TextView
-                    android:id="@+id/text_month"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:text="11"
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text=" / "
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:id="@+id/text_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="27"
-                    android:textSize="15dp" />
-                -->
-
-                <TextView
-                    android:id="@+id/text_weather_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text=""
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="updated"
-                    android:layout_marginLeft="5dp"
-                    android:textSize="15dp" />
-
-            </LinearLayout>
-
-            <!-- weather icon (imageView로 바꿀 것) -->
-            <TextView
-                android:id="@+id/image_weather_icon"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:layout_below="@id/linear_weatherText_onTop"
-                android:text="icon"
-                android:textSize="15dp" />
+                android:layout_marginTop="5dp"
+                android:textSize="10dp" />
 
-            <!-- weather location, temperature -->
-            <LinearLayout
-                android:id="@+id/linear_weatherText_onRight"
+            <TextView
+                android:id="@+id/text_wTemp_Bfr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/linear_weatherText_onTop"
-                android:layout_toRightOf="@id/image_weather_icon"
-                android:orientation="vertical">
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:text="temp"
+                android:textSize="10dp" />
 
-                <TextView
-                    android:id="@+id/text_weather_locate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:layout_marginTop="15dp"
-                    android:text="Seoul"
-                    android:textSize="15dp" />
+            <TextView
+                android:id="@+id/text_wStatus_Bfr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:text="status"
+                android:textSize="10dp" />
 
-                <TextView
-                    android:id="@+id/text_weather_temp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:layout_marginTop="5dp"
-                    android:text="temp"
-                    android:textSize="15dp" />
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/text_weather_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:layout_marginTop="5dp"
-                    android:text="status"
-                    android:textSize="15dp" />
+    </RelativeLayout>
 
-            </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="OpenWeatherMap API Json (JsonReader)"
+        android:textSize="10dp"/>
 
-        </RelativeLayout>
+    <!-- weather view with JsonReader-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal">
+
+        <!-- weather when (ex today (01/23 updated)) -->
+        <LinearLayout
+            android:id="@+id/ln_wText_Jsr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_wToday_Jsr"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="TODAY"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/text_wDate_Jsr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="updated"
+                android:layout_marginLeft="5dp"
+                android:textSize="10dp" />
+
+        </LinearLayout>
+
+        <!-- weather icon -->
+        <TextView
+            android:id="@+id/text_wIcon_Jsr"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:layout_below="@id/ln_wText_Jsr" />
+
+        <!-- weather location, temperature -->
+        <LinearLayout
+            android:id="@+id/linear_wText_Jsr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ln_wText_Jsr"
+            android:layout_toRightOf="@id/text_wIcon_Jsr"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_wCity_Jsr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/text_wTemp_Jsr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:text="temp"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/text_wStatus_Jsr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:text="status"
+                android:textSize="10dp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="Yahoo API XML PARSING"
+        android:textSize="10dp"/>
+
+    <!-- weather view with XML-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal">
+
+        <!-- weather when (ex today (01/23 updated)) -->
+        <LinearLayout
+            android:id="@+id/ln_wText_Xml"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_wToday_Xml"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="TODAY"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/text_wDate_Xml"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="updated"
+                android:layout_marginLeft="5dp"
+                android:textSize="10dp" />
+
+        </LinearLayout>
+
+        <!-- weather icon -->
+        <TextView
+            android:id="@+id/text_wIcon_Xml"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:layout_below="@id/ln_wText_Xml" />
+
+        <!-- weather location, temperature -->
+        <LinearLayout
+            android:id="@+id/linear_weatherText_onRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ln_wText_Xml"
+            android:layout_toRightOf="@id/text_wIcon_Xml"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_wCity_Xml"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/text_wTemp_Xml"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:text="temp"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/text_wStatus_Xml"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:text="status"
+                android:textSize="10dp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </LinearLayout>

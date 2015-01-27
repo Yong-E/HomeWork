@@ -6,46 +6,90 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.HttpURLConnection;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
+import android.os.Message;
+import android.util.JsonReader;
+import android.util.Log;
 
 public class HttpConnect {
 
     final static HttpClient httpClient = new DefaultHttpClient();
     private static final String OPEN_WEATHER_MAP_API = "http://api.openweathermap.org/data/2.5/weather?q=%s&units=metric";
 
-    public JSONObject getJason(String city) {
-        try {
-            URL url = new URL(String.format(OPEN_WEATHER_MAP_API, city));
-            HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+    URL url = null;
+    HttpURLConnection connection = null;
 
-            //connection.addRequestProperty("x-api-key", context.getString(R.string.open_weather_maps_app_id));
+    private void getHttpURLConnection(String city) {
+        try {
+            url = new URL(String.format(OPEN_WEATHER_MAP_API, city));
+            connection = (HttpURLConnection) url.openConnection();
+        } catch (Exception e) {
+            Log.e("HttpURLConnection : ", e.toString());
+        }
+    }
+
+    public JSONObject getJasonWithBufferedReader(String city) {
+        getHttpURLConnection(city);
+
+        JSONObject dataObj = null;
+        try {
+            /*
+            *********Do not use "\n"**********
+
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
             StringBuffer json = new StringBuffer(1024);
             String tmp = "";
+
+
             while ((tmp = reader.readLine()) != null) {
                 json.append(tmp).append("\n");
             }
+            */
+
+            Reader reader = new InputStreamReader(connection.getInputStream());
+            char[] buffer = new char[1024];
+            reader.read(buffer);
 
             reader.close();
 
-            JSONObject data = new JSONObject(json.toString());
+            dataObj = new JSONObject(new String(buffer));
 
             // This value will be 404 if the request was not
             // successful
-            if(data.getInt("cod") != 200){
+            if(dataObj.getInt("cod") != 200) {
                 return null;
             }
 
-            return data;
-        }catch(Exception e){
-            return null;
+            //return data;
+        }catch(Exception e) {
+            Log.e("getJasonUsingBufferedReader (HTTPConnect) : ", e.toString());
         }
+        return dataObj;
+    }
+
+    public JsonReader getJasonStream (String city) {
+        getHttpURLConnection(city);
+
+        JsonReader jsonRdr = null;
+        try {
+            jsonRdr = new JsonReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
+
+        } catch (Exception e) {
+            Log.e("getJasonUsingJsonReader (HTTPConnect) : ", e.toString());
+        }
+
+        return jsonRdr;
     }
 }
+
 

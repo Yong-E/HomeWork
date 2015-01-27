@@ -68,7 +68,6 @@ public class RightTabFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         imgView = (ImageView) getView().findViewById(R.id.imgView);
     }
-
     // Fragment 초기화 할 요소를 넣는다. UI inflate & Service & Timer 등
     // onStart()에 넣을 수 있으면 onStart()가 좋음, onCreateView()에 넣으면, 다 그려지기 전까지는 화면에 보이지 않을 수 있음.
     @Override
@@ -77,13 +76,7 @@ public class RightTabFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-
-
-
-
-    }
+    public void onResume() { super.onResume(); }
 
     public void onPause() {
         super.onPause();

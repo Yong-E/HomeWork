@@ -45,6 +45,12 @@ public class MainActivity extends FragmentActivity {
                 case 1:
                     RightTabFragment fragment2 = new RightTabFragment();
                     return fragment2;
+                case 2:
+                    GlideFragment fragment3 = new GlideFragment();
+                    return fragment3;
+                case 3:
+                    PicassoFragment fragment4 = new PicassoFragment();
+                    return fragment4;
 
             }
             return null;
@@ -53,7 +59,7 @@ public class MainActivity extends FragmentActivity {
         @Override
         public int getCount() {
             // Show 2 total pages.
-            return 2;
+            return 4;
         }
 
         @Override
@@ -64,6 +70,10 @@ public class MainActivity extends FragmentActivity {
                     return getString(R.string.title_leftTab).toUpperCase(l);
                 case 1:
                     return getString(R.string.title_rightTab).toUpperCase(l);
+                case 2:
+                    return "GLIDE".toUpperCase(l);
+                case 3:
+                    return "PICASSO".toUpperCase(l);
             }
             return null;
         }

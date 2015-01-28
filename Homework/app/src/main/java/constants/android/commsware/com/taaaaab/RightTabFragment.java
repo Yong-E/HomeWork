@@ -141,7 +141,7 @@ public class RightTabFragment extends Fragment {
             try {
                 HttpURLConnection httpConnection = (HttpURLConnection) connection;
                 httpConnection.setRequestMethod("GET");
-                httpConnection.setDoOutput(true); // URLConnection availability
+                httpConnection.setDoOutput(true); // URLConnection available
                 httpConnection.connect();
 
                 if (httpConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {

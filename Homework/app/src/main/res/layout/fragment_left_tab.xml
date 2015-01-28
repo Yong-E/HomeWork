@@ -77,9 +77,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         android:text="OpenWeatherMap API Json (Reader instead of Bfr)"
-        android:textSize="10dp"/>
+        android:textSize="15dp"/>
 
     <!-- weather view with BufferedReader-->
     <RelativeLayout
@@ -101,22 +101,14 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="TODAY"
-                android:textSize="10dp" />
+                android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/text_wDate_Bfr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="10dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="updated"
-                android:layout_marginLeft="5dp"
-                android:textSize="10dp" />
+                android:textSize="15dp" />
 
         </LinearLayout>
 
@@ -128,6 +120,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_marginRight="10dp"
+            android:textSize="30dp"
             android:layout_below="@id/ln_wText_Bfr" />
 
         <!-- weather location, temperature -->
@@ -146,7 +139,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:layout_marginTop="5dp"
-                android:textSize="10dp" />
+                android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/text_wTemp_Bfr"
@@ -156,7 +149,7 @@
                 android:gravity="center"
                 android:layout_marginTop="5dp"
                 android:text="temp"
-                android:textSize="10dp" />
+                android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/text_wStatus_Bfr"
@@ -166,7 +159,7 @@
                 android:gravity="center"
                 android:layout_marginTop="5dp"
                 android:text="status"
-                android:textSize="10dp" />
+                android:textSize="15dp" />
 
         </LinearLayout>
 
@@ -179,7 +172,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:text="OpenWeatherMap API Json (JsonReader)"
-        android:textSize="10dp"/>
+        android:textSize="15dp"/>
 
     <!-- weather view with JsonReader-->
     <RelativeLayout
@@ -201,22 +194,14 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="TODAY"
-                android:textSize="10dp" />
+                android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/text_wDate_Jsr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="10dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="updated"
-                android:layout_marginLeft="5dp"
-                android:textSize="10dp" />
+                android:textSize="15dp" />
 
         </LinearLayout>
 
@@ -228,6 +213,7 @@
             android:layout_gravity="center"
             android:layout_marginRight="10dp"
             android:gravity="center"
+            android:textSize="30dp"
             android:layout_below="@id/ln_wText_Jsr" />
 
         <!-- weather location, temperature -->
@@ -246,7 +232,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:layout_marginTop="5dp"
-                android:textSize="10dp" />
+                android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/text_wTemp_Jsr"
@@ -256,7 +242,7 @@
                 android:gravity="center"
                 android:layout_marginTop="5dp"
                 android:text="temp"
-                android:textSize="10dp" />
+                android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/text_wStatus_Jsr"
@@ -266,7 +252,7 @@
                 android:gravity="center"
                 android:layout_marginTop="5dp"
                 android:text="status"
-                android:textSize="10dp" />
+                android:textSize="15dp" />
 
         </LinearLayout>
 
@@ -279,7 +265,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:text="Yahoo API XML PARSING"
-        android:textSize="10dp"/>
+        android:textSize="15dp"/>
 
     <!-- weather view with XML-->
     <RelativeLayout
@@ -301,22 +287,14 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="TODAY"
-                android:textSize="10dp" />
+                android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/text_wDate_Xml"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="10dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="updated"
-                android:layout_marginLeft="5dp"
-                android:textSize="10dp" />
+                android:textSize="15dp" />
 
         </LinearLayout>
 
@@ -346,7 +324,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:layout_marginTop="5dp"
-                android:textSize="10dp" />
+                android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/text_wTemp_Xml"
@@ -356,7 +334,7 @@
                 android:gravity="center"
                 android:layout_marginTop="5dp"
                 android:text="temp"
-                android:textSize="10dp" />
+                android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/text_wStatus_Xml"
@@ -366,7 +344,7 @@
                 android:gravity="center"
                 android:layout_marginTop="5dp"
                 android:text="status"
-                android:textSize="10dp" />
+                android:textSize="15dp" />
 
         </LinearLayout>
 

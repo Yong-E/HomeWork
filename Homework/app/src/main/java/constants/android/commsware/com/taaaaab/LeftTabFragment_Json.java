@@ -61,7 +61,7 @@ public class LeftTabFragment_Json extends Fragment {
     String mTempJsr, mStatusJsr, mIconJsr;
 
     // Yahoo API using Xml
-    TextView mTVTempXml, mTVStatusXml, mTVDateXml;
+    TextView mTVTempXml, mTVStatusXml, mTVDateXml, mTVCityXml;
     String mTempXml, mStatusXml, mDateXml;
 
     String mDefaultCity = "Seoul, KR";
@@ -120,10 +120,12 @@ public class LeftTabFragment_Json extends Fragment {
         // 3rd Weather View
         // set View using Yahoo Weather API with XML Parsing
         mTVTempXml = (TextView)mView.findViewById(R.id.text_wTemp_Xml);
-        mTVStatusXml = (TextView)mView.findViewById(R.id.text_wTemp_Xml);
-        mTVDateXml = (TextView)mView.findViewById(R.id.text_wTemp_Xml);
+        mTVStatusXml = (TextView)mView.findViewById(R.id.text_wStatus_Xml);
+        mTVDateXml = (TextView)mView.findViewById(R.id.text_wDate_Xml);
+        mTVCityXml = (TextView)mView.findViewById(R.id.text_wCity_Xml);
+        mTVCityXml.setText(mDefaultCity);
 
-        new weatherTaskUsingYahhoAPI().execute();
+        new weatherTaskUsingYahooAPI().execute();
 
         return mView;
     }
@@ -149,7 +151,7 @@ public class LeftTabFragment_Json extends Fragment {
         }
     };
 
-    // use JSON with BufferedStream
+    // use JSON with StreamReader
     protected class weatherTaskUsingOpenWeatherMapAPI extends AsyncTask<Void, Void, Void> {
 
         protected void onPreExecute() { super.onPreExecute(); }
@@ -169,19 +171,18 @@ public class LeftTabFragment_Json extends Fragment {
             return null;
         }
 
-        // EXECUTE ON UI THREAD
         protected void onPostExecute(Void result) {
             // set 1st Weather View
             mTVTempBfr.setText(mTempBfr);
             mTVStatusBfr.setText(mStatusBfr);
-            mTVDateBfr.setText(new SimpleDateFormat("MM/dd").format(new Date()));
+            mTVDateBfr.setText(new SimpleDateFormat("dd MMM yyyy").format(new Date()));
 
             mTVWeatherIconBfr.setText(mIconBfr);
 
             // set 2nd Weather View
             mTVTempJsr.setText(mTempJsr);
             mTVStatusJsr.setText(mStatusJsr);
-            mTVDateJsr.setText(new SimpleDateFormat("MM/dd").format(new Date()));
+            mTVDateJsr.setText(new SimpleDateFormat("dd MMM yyyy").format(new Date()));
 
             mTVWeatherIconJsr.setText(mIconJsr);
         }
@@ -212,28 +213,29 @@ public class LeftTabFragment_Json extends Fragment {
         private void readJson (JsonReader reader) {
             String main = "";
             int id = 0;
+            Long[] sunStatus = new Long[2];
 
             try {
                 reader.beginObject();
 
                 while (reader.hasNext()) {
                     main = reader.nextName();
-                    if (main.equals("main")) {
-                        readMainObject(reader);
+                    if (main.equals("sys")) {
+                        sunStatus = readSysObject(reader, id);
                     } else if (main.equals("weather")) {
-                        readWeatherArray(reader);
+                        id = readWeatherArray(reader);
+                    } else if (main.equals("main")) {
+                        readMainObject(reader);
                     } else {
                         reader.skipValue();
                     }
                 }
 
                 reader.endObject();
-
+                mIconJsr = setWeatherIcon(id, sunStatus[0], sunStatus[1]);
             } catch (Exception e) {
                 Log.e("readJson: ", e.toString());
             }
-
-            //readWeatherInfo(reader);
         }
 
         private void readMainObject(JsonReader reader) {
@@ -258,41 +260,46 @@ public class LeftTabFragment_Json extends Fragment {
             }
         }
 
-//        private void readSysObject(JsonReader reader, int id) {
-//            String detail = "";
-//            Long sunrise = null, sunset = null;
-//
-//            try {
-//                reader.beginObject();
-//
-//                while (reader.hasNext()) {
-//                    detail = reader.nextName();
-//                    if (detail.equals("sunrise")) {
-//                        sunrise = reader.nextLong() * 1000;
-//                    } else if (detail.equals("sunset")) {
-//                        sunset = reader.nextLong() * 1000;
-//                    } else {
-//                        reader.skipValue();
-//                    }
-//                }
-//
-//                reader.endObject();
-//
-//                mIconJsr = setWeatherIcon(id, sunrise, sunset);
-//
-//            } catch (Exception e) {
-//                Log.e("readMainObject: ", e.toString());
-//            }
-//        }
+        private Long[] readSysObject(JsonReader reader, int id) {
+            String detail = "";
+            Long[] sunStatus = new Long[2];
 
-        private void readWeatherArray(JsonReader reader) {
+            try {
+                reader.beginObject();
+
+                while (reader.hasNext()) {
+                    detail = reader.nextName();
+                    if (detail.equals("sunrise")) {
+                        sunStatus[0] = reader.nextLong() * 1000;
+                    } else if (detail.equals("sunset")) {
+                        sunStatus[1] = reader.nextLong() * 1000;
+                    } else {
+                        reader.skipValue();
+                    }
+                }
+
+                reader.endObject();
+
+            } catch (Exception e) {
+                Log.e("readMainObject: ", e.toString());
+            }
+
+            return sunStatus;
+        }
+
+        private int  readWeatherArray(JsonReader reader) {
+            int id = 0;
+            String details = "";
             try {
                 reader.beginArray();
                 reader.beginObject();
 
                 while (reader.hasNext()) {
-                    if (reader.nextName().equals("main")) {
+                    details = reader.nextName();
+                    if (details.equals("main")) {
                         mStatusJsr = reader.nextString();
+                    } else if (details.equals("id")) {
+                        id = reader.nextInt();
                     } else {
                         reader.skipValue();
                     }
@@ -304,6 +311,8 @@ public class LeftTabFragment_Json extends Fragment {
             } catch (Exception e) {
                 Log.e("readWeatherArray: ", e.toString());
             }
+
+            return id;
         }
 
         private String setWeatherIcon (int actualId, long sunrise, long sunset) {
@@ -340,13 +349,13 @@ public class LeftTabFragment_Json extends Fragment {
     }
 
     // use XML
-    protected class weatherTaskUsingYahhoAPI extends AsyncTask<Void, String, String> {
+    protected class weatherTaskUsingYahooAPI extends AsyncTask<Void, Void, Void> {
 
         protected void onPreExecute() {
             super.onPreExecute();
         }
 
-        protected String doInBackground(Void... arg0) {
+        protected Void doInBackground(Void... arg0) {
             String qResult = "";
             HttpClient httpClient = new DefaultHttpClient();
             HttpContext localContext = new BasicHttpContext();
@@ -396,7 +405,7 @@ public class LeftTabFragment_Json extends Fragment {
             mTempXml = temperatureNode.getAttributes().getNamedItem("temp").getNodeValue().toString();
 
             Node tempUnitNode = dest.getElementsByTagName("yweather:units").item(0);
-            mTempXml= mTempXml + "°" +tempUnitNode.getAttributes().getNamedItem("temperature").getNodeValue().toString();
+            mTempXml = mTempXml + " °" + tempUnitNode.getAttributes().getNamedItem("temperature").getNodeValue().toString();
 
             Node dateNode = dest.getElementsByTagName("yweather:forecast").item(0);
             mDateXml = dateNode.getAttributes().getNamedItem("date").getNodeValue().toString();
@@ -404,11 +413,11 @@ public class LeftTabFragment_Json extends Fragment {
             Node conditionNode = dest.getElementsByTagName("yweather:condition").item(0);
             mStatusXml = conditionNode.getAttributes().getNamedItem("text").getNodeValue().toString();
 
-            return qResult;
+            return null;
         }
 
         // EXECUTE ON UI THREAD
-        protected void onPostExecute(String result) {
+        protected void onPostExecute(Void result) {
             mTVTempXml.setText(mTempXml);
             mTVStatusXml.setText(mStatusXml);
             mTVDateXml.setText(mDateXml);

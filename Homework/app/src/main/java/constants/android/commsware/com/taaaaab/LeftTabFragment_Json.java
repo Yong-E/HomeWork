@@ -1,19 +1,17 @@
 package constants.android.commsware.com.taaaaab;
 
-import android.support.v7.internal.view.menu.MenuView;
-import android.util.JsonReader;
-import android.util.JsonToken;
-import android.widget.TextView;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.util.JsonReader;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -28,18 +26,24 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
+/*
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.Reader;
+*/
+
+import org.apache.commons.io.IOUtils;
 
 public class LeftTabFragment_Json extends Fragment {
     public View mView;
@@ -195,7 +199,8 @@ public class LeftTabFragment_Json extends Fragment {
                 mTempBfr = String.format("%.2f", main.getDouble("temp")) + " ℃";
                 mStatusBfr= details.getString("main");
 
-                mIconBfr = setWeatherIcon(details.getInt("id"), json.getJSONObject("sys").getLong("sunrise") * 1000, json.getJSONObject("sys").getLong("sunset") * 1000);
+                mIconBfr = setWeatherIcon(details.getInt("id"), json.getJSONObject("sys").getLong("sunrise") * 1000,
+                                json.getJSONObject("sys").getLong("sunset") * 1000);
 
             } catch(Exception e) {
                 Log.e("getWeatherWithBufferedReader: ", e.toString());
@@ -366,6 +371,7 @@ public class LeftTabFragment_Json extends Fragment {
                 HttpEntity entity = response.getEntity();
 
                 if (entity != null) {
+                    /*
                     InputStream inputStream = entity.getContent();
                     Reader in = new InputStreamReader(inputStream);
                     BufferedReader bufferedreader = new BufferedReader(in);
@@ -377,6 +383,10 @@ public class LeftTabFragment_Json extends Fragment {
                     }
 
                     qResult = stringBuilder.toString();
+                    */
+
+                    InputStream inputStream = entity.getContent();
+                    qResult = IOUtils.toString(inputStream);
                 }
             } catch (ClientProtocolException e) {
                 e.printStackTrace();

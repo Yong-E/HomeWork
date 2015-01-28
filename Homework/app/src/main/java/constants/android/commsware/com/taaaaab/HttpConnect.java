@@ -1,5 +1,6 @@
 package constants.android.commsware.com.taaaaab;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
@@ -7,6 +8,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.HttpURLConnection;
@@ -42,20 +44,20 @@ public class HttpConnect {
 
         JSONObject dataObj = null;
         try {
+            //*********Do not use "\n"**********
             /*
-            *********Do not use "\n"**********
-
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
             StringBuffer json = new StringBuffer(1024);
             String tmp = "";
-
-
-            while ((tmp = reader.readLine()) != null) {
+            while ((tmp=reader.readLine())!=null)
                 json.append(tmp).append("\n");
-            }
+            reader.close();
+
+            dataObj = new JSONObject(json.toString());
             */
 
+            // not using while but this way using buffer
+            /*
             Reader reader = new InputStreamReader(connection.getInputStream());
             char[] buffer = new char[1024];
             reader.read(buffer);
@@ -63,6 +65,9 @@ public class HttpConnect {
             reader.close();
 
             dataObj = new JSONObject(new String(buffer));
+            */
+
+            dataObj = new JSONObject(IOUtils.toString(connection.getInputStream()));
 
             // This value will be 404 if the request was not
             // successful

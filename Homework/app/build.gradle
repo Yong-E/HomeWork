@@ -25,4 +25,5 @@ dependencies {
     compile 'com.android.support:support-v4:21.0.3'
     compile project(':glide-3.5.0')
     compile project(':picasso-2.4.0')
+    compile project(':commons-io-2.4')
 }
